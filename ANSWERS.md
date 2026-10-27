@@ -114,8 +114,8 @@ Result (from `docs/profiling/silk_report.md`, seeded user with 250 orders x 4 it
 
 | | SQL queries | Time in SQL | Total time |
 |---|---:|---:|---:|
-| Before fix | 1,753 | 127 ms | 906 ms |
-| After fix | 4 | 2 ms | 32 ms |
+| Before fix | 1,753 | 126 ms | 898 ms |
+| After fix | 4 | 2 ms | 33 ms |
 
 (The 4 includes the session and user lookups done by the auth middleware.)
 
