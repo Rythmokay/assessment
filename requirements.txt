@@ -1,0 +1,7 @@
+Django==5.2.18
+djangorestframework==3.18.3
+django-silk==5.6.0
+celery[redis]==5.6.3
+redis==6.4.0
+pytest==9.1.1
+pytest-django==4.14.0
