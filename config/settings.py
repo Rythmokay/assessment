@@ -9,10 +9,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-local-dev-only")
 DEBUG = os.environ.get("DJANGO_DEBUG", "1") == "1"
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver"]
-# Railway sets this to the service's public hostname.
-if os.environ.get("RAILWAY_PUBLIC_DOMAIN"):
-    ALLOWED_HOSTS.append(os.environ["RAILWAY_PUBLIC_DOMAIN"])
-    CSRF_TRUSTED_ORIGINS = [f"https://{os.environ['RAILWAY_PUBLIC_DOMAIN']}"]
+# Render sets this to the service's public hostname.
+if os.environ.get("RENDER_EXTERNAL_HOSTNAME"):
+    ALLOWED_HOSTS.append(os.environ["RENDER_EXTERNAL_HOSTNAME"])
+    CSRF_TRUSTED_ORIGINS = [f"https://{os.environ['RENDER_EXTERNAL_HOSTNAME']}"]
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # django-silk is the profiler used for the Section 1 evidence. It records every

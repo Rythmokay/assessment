@@ -1,0 +1,28 @@
+# Render Blueprint: New -> Blueprint in the Render dashboard, pick this repo and branch.
+# Everything here is on the free plan. See README "Deploy on Render".
+services:
+  - type: web
+    name: assessment-api
+    runtime: python
+    plan: free
+    branch: deploy
+    buildCommand: pip install -r requirements.txt
+    startCommand: sh start.sh
+    envVars:
+      - key: SERVICE_ROLE
+        value: all
+      - key: DJANGO_DEBUG
+        value: "0"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: assessment-redis
+          property: connectionString
+
+  - type: keyvalue
+    name: assessment-redis
+    plan: free
+    # Internal connections only.
+    ipAllowList: []

@@ -78,6 +78,30 @@ Linux; on macOS with Python 3.14 billiard's prefork pool currently fails at star
 Settings (environment variables): `EMAIL_RATE_LIMIT`, `EMAIL_RATE_WINDOW_SECONDS`, `EMAIL_MAX_ATTEMPTS`,
 `EMAIL_BACKOFF_BASE_SECONDS`, `EMAIL_BACKOFF_MAX_SECONDS`, `EMAIL_PROVIDER`.
 
+## Deploy on Render (optional)
+
+The brief only needs the local setup above. The `deploy` branch adds a free Render setup for a live
+demo of Section 1; `main` is unchanged.
+
+1. Render dashboard → **New → Blueprint** → connect this repo → pick the **`deploy`** branch.
+2. Render reads [`render.yaml`](render.yaml) and creates a free Web Service and a free Key Value (Redis).
+   Click **Apply** and wait for the first deploy (about 3–5 minutes).
+3. Open `https://<your-service>.onrender.com/api/orders/summary/` (log in as `demo` / `demo-password`),
+   `/api/orders/summary/before-fix/` and `/silk/`.
+
+How it runs (`start.sh`, `SERVICE_ROLE=all`): migrate, collect static, seed the demo user, then start the
+Celery worker in the background and gunicorn in the foreground, in one free instance.
+
+Free-plan limits:
+- The service sleeps after ~15 minutes idle; the first request after that takes about a minute.
+- No persistent disk, so SQLite (and silk's history) resets on every restart. The seed step recreates the
+  demo data. Set `DATABASE_URL` to a Postgres URL (Render Postgres, Supabase) to keep data.
+- The worker sleeps with the service; queued emails wait in Redis (`acks_late`) rather than being lost.
+- Free instances have no Shell, so the Section 2 burst demo is easiest to run locally (see above).
+
+For a production-shaped setup, give the API `SERVICE_ROLE=web` and add a paid Background Worker
+running the same `sh start.sh` with `SERVICE_ROLE=worker`.
+
 ## Recording (optional section)
 
 Not included.
