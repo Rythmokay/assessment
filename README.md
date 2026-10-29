@@ -80,10 +80,9 @@ Settings (environment variables): `EMAIL_RATE_LIMIT`, `EMAIL_RATE_WINDOW_SECONDS
 
 ## Deploy on Render (optional)
 
-The brief only needs the local setup above. The `deploy` branch adds a free Render setup for a live
-demo of Section 1; `main` is unchanged.
+The brief only needs the local setup above. For a live demo of Section 1 there is a free Render setup.
 
-1. Render dashboard → **New → Blueprint** → connect this repo → pick the **`deploy`** branch.
+1. Render dashboard → **New → Blueprint** → connect this repo → pick the **`main`** branch.
 2. Render reads [`render.yaml`](render.yaml) and creates a free Web Service and a free Key Value (Redis).
    Click **Apply** and wait for the first deploy (about 3–5 minutes).
 3. Open `https://<your-service>.onrender.com/api/orders/summary/` (log in as `demo` / `demo-password`),

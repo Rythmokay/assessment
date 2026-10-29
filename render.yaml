@@ -5,7 +5,7 @@ services:
     name: assessment-api
     runtime: python
     plan: free
-    branch: deploy
+    branch: main
     buildCommand: pip install -r requirements.txt
     startCommand: sh start.sh
     envVars:
